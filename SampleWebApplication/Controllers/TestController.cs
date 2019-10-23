@@ -11,7 +11,7 @@ namespace SampleWebApplication.Controllers
         // GET: Test
         public string Index()
         {
-            return "This is Index Page";
+            return "Azure DevOps";
 
         }
     }
