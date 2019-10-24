@@ -11,7 +11,7 @@ namespace SampleWebApplication.Controllers
         // GET: Test
         public string Index()
         {
-            return "Hello Azure DevOps";
+            return "Azure DevOps CICD";
 
         }
     }
