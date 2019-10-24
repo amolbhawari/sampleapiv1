@@ -11,7 +11,7 @@ namespace SampleWebApplication.Controllers
         // GET: Test
         public string Index()
         {
-            return "Azure DevOps deployed on server";
+            return "Azure DevOps deployed on 40.121.218.254";
 
         }
     }
