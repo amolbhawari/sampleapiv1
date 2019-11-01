@@ -11,7 +11,7 @@ namespace SampleWebApplication.Controllers
         // GET: Test
         public string Index()
         {
-            return "Azure DevOps CICD - Version 5.1";
+            return "Azure DevOps CICD - Version 5.2";
 
         }
     }
