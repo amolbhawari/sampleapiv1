@@ -6,8 +6,8 @@ trigger:
 - master
  
 variables:
-  dockerId: regmaster 
-  imageName: webapp  
+  dockerId: amolbhawari 
+  imageName: amolbhawari\apache2 
  
 steps:    
 # Azure
@@ -26,7 +26,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'Registry'
-    repository: 'sachinkgaikwad/devops'
+    repository: 'amolbhawari\apache2'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
  
