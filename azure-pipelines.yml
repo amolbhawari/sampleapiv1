@@ -8,15 +8,15 @@ trigger:
 variables:
   dockerId: amolbhawari 
   imageName: amolbhawari\apache2 
-  
+ 
 steps:    
 # Azure
- script: |
-    docker build -t $(dockerId).azurecr.io/$(imageName) .
-    docker login -u $(dockerId) -p $(pswd) $(dockerId).azurecr.io
-    docker push $(dockerId).azurecr.io/$(imageName)
-env: 
-     pswd: $(dockerPassword)   
+#- script: |
+#    docker build -t $(dockerId).azurecr.io/$(imageName) .
+#    docker login -u $(dockerId) -p $(pswd) $(dockerId).azurecr.io
+#    docker push $(dockerId).azurecr.io/$(imageName)
+#  env: 
+#     pswd: $(dockerPassword)   
  
 - task: Docker@2
   inputs:
