@@ -1,11 +1,20 @@
-FROM microsoft/aspnetcore-build:2.0.0 AS build
-WORKDIR /code
-COPY . .
-RUN dotnet restore 
-
-RUN dotnet publish --output /output --configuration Release
-
-FROM microsoft/aspnetcore:latest
-COPY --from=build /output /app
+FROM microsoft/aspnetcore:2.0 AS base
 WORKDIR /app
-ENTRYPOINT ["dotnet","sampleapiv1.dll"]
+EXPOSE 80
+
+FROM microsoft/aspnetcore-build:2.0 AS builder
+WORKDIR /src
+COPY *.sln ./
+COPY CarApi/CarApi.csproj CarApi/
+RUN dotnet restore
+COPY . .
+WORKDIR /src/CarApi
+RUN dotnet build -c Release -o /app
+
+FROM builder AS publish
+RUN dotnet publish -c Release -o /app
+
+FROM base AS production
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "SampleapiV1.dll"]
