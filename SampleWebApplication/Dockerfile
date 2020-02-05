@@ -1,20 +1,16 @@
-FROM microsoft/aspnetcore:2.0 AS base
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
 WORKDIR /app
-EXPOSE 80
 
-FROM microsoft/aspnetcore-build:2.0 AS builder
-WORKDIR /src
-COPY *.sln ./
-COPY CarApi/CarApi.csproj CarApi/
+# Copy csproj and restore as distinct layers
+COPY *.csproj ./
 RUN dotnet restore
-COPY . .
-WORKDIR /src/CarApi
-RUN dotnet build -c Release -o /app
 
-FROM builder AS publish
-RUN dotnet publish -c Release -o /app
+# Copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o out
 
-FROM base AS production
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
-COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "SampleapiV1.dll"]
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "Project-DockerASPNET.dll"]
